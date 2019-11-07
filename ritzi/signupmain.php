@@ -1,8 +1,43 @@
 <!doctype html>
+<?php
+                include 'testdb.php';
+                $name = $_POST['name'];
+                $mob = $_POST['mobile'];
+                $add = $_POST['address'];
+                $em = $_POST['email'];
+                $pass=$_POST['password'];
+
+
+                session_start();
+                $_SESSION["mailid"]=$em;
+                $_SESSION["mobile"]=$mob;
+
+
+
+                $sql="INSERT INTO loginpage (cust_name,mobile_no,address,email,password)VALUES ('$name','$mob','$add','$em','$pass')";
+                if(!mysqli_query($con,$sql))
+                    die('error :'.mysqli_error($con));
+                //echo" false";
+                else 
+                    {echo "record successfully added";}
+                $s="select *from loginpage where cust_id=(select max(cust_id) from loginpage)";
+                $result=mysqli_query($con,$s);
+                if(!mysqli_query($con,$s))
+                {echo "not connecting ";}
+
+                while($row=mysqli_fetch_array($result))
+
+                {echo "</br>";
+                echo "name :".$row[1]."</br> mobile number:   ".$row[2]." </br>address:   ".$row[3]."</br> email:  ".$row[4];}
+                //echo"to change entered details "
+                echo "<script>setTimeout(\"location.href = 'ritziattire.html';\",3000);</script>";
+
+                mysqli_close($con);
+                ?>
 <html>
 <head>
 
-<title>LOGIN</title>
+<title>SIGNUP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -85,7 +120,7 @@
         }
         .box{
             width:50%;
-            height:400px;
+            height:300px;
             background: rgba(0,0,300,0.5);
             margin: 100px auto;
             padding: 50px;
@@ -102,19 +137,7 @@
             text-decoration: none;
             color: White;
         }
-        .register{
-            margin:-38px 0px 0px 200px;
-        }
-        .forgot{
-            margin:-35px 0px 0px 500px;
-        }
-        .forgot a{
-            color: white;
-            font-size: 20px;
-        }
-        .forgot a:hover{
-            color:#0B3BA2;
-        }
+        
     </style>
 </head>
 
@@ -182,53 +205,7 @@
         <div class="col-md-12">
             
             <div class="box">
-                <div class="welcome">Welcome</div>
-            <form action="login.php" method="post">
-                <font face="Cambria" color="white" size="5">
-              <div class="form-group">
-                  
-                <label for="exampleInputEmail2">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="name">
-                
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-              </div>
-                </font>
-              
-              <div class="login"><button type="submit" class="btn btn-primary">Login</button></div>
-                </form>
-                <?php
-                include 'testdb.php';
-                $user=$_POST['name'];
-                $p=$_POST['password'];
-                $sql="select * from loginpage";
-                $result=mysqli_query($con,$sql);
-                if(!$result)
-                    echo " no query selected  ";$flag=0;
-                while($row=mysqli_fetch_array($result))
-                {
-                    if($row['name']==$user&&$row['password']==$p)
-                        {
-                echo "<br/> details are: <br/>";
-                echo $row['name']." ".$row['phoneno']."  ".$row['email']."  ".$row['gender'];
-                echo "<br/>"; $flag++;
-                break;}
-
-                }
-                if($flag==0)
-                echo"wrong username or password ";
-                ?>
-                <form action="signup.html">
-                <div class="register">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-                <div class="forgot">
-                    <a href="#">Forgot Password?</a>
-                </div>
-                
-            </form>
+                <h2>Registered Successfully!!</h2>
                 </div>
         </div>
     </div>

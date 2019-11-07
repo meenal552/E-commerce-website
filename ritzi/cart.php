@@ -87,10 +87,31 @@
             width:50%;
             height:400px;
             background: rgba(0,0,300,0.5);
-            margin: 100px auto;
+            margin: 100px 100px;
             padding: 50px;
             border-radius: 20px;
+            float: left;
             
+        }
+        .box1{
+            width:25%;
+            height:350px;
+            background: rgba(0,0,300,0.5);
+            margin: 100px 50px;
+            padding: 50px;
+            border-radius: 20px;
+            float: left;
+        }
+        .dress{
+            height:200px;
+            width:130px;
+            border-radius: 20px;
+        }
+        .address{
+            margin-left: 10px;
+        }
+        .place{
+            margin:20px 75px;
         }
         .welcome{
             color:black;
@@ -182,51 +203,40 @@
         <div class="col-md-12">
             
             <div class="box">
-                <div class="welcome">Welcome</div>
-            <form action="login.php" method="post">
-                <font face="Cambria" color="white" size="5">
-              <div class="form-group">
+                <h2>MY CART</h2>
+                <div class="media">
+                <div>
+              <img src="9782a9befcc4f50514dd3153e33419cc.jpg" class="mr-3 dress" alt="...">
+                 
+                    
+                </div>
+              <div class="media-body">
+                <h3 class="mt-0">White Sherwani</h3>
+                <h4>Rs.4999</h4>
+                  <h5>Deliver to:</h5>
+                    <h5>Quantity:</h5>
+                  <h3>Delivery in 4 Days</h3>
                   
-                <label for="exampleInputEmail2">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="name">
+                  
+                  
+                  
+                  
+              </div>
+            </div>
                 
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-              </div>
-                </font>
-              
-              <div class="login"><button type="submit" class="btn btn-primary">Login</button></div>
+                </div>
+            <div class="box1">
+            <h2>PRICE DETAILS</h2>
+                <h4>Price:</h4>
+                <h4>Total Quantity:</h4>
+                <h4>Delivery:</h4>
+                <h3>Total Payable:</h3>
+                <form action="#">
+                <div class="place">
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                </div>
                 </form>
-                <?php
-                include 'testdb.php';
-                $user=$_POST['name'];
-                $p=$_POST['password'];
-                $sql="select * from loginpage where name='$user' && password='$p'";
-                if($result=mysqli_query($con,"$sql")){
-                    while($row=mysqli_fetch_assoc($result)){
-                    $name=$row['name'];
-                    $email=$row['email'];
-                        echo "name: ",$name;
-                        echo "<br/><br/>";
-                        echo "email: ",$email,"<br/><br/>";
-                }
-                }
-                else{
-                        echo"invalid email and password","<br/><br/>";
-                    }
-                ?>
-                <form action="signup.html">
-                <div class="register">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-                <div class="forgot">
-                    <a href="#">Forgot Password?</a>
-                </div>
-                
-            </form>
-                </div>
+            </div>
         </div>
     </div>
     <div class="row">

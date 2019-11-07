@@ -1,8 +1,61 @@
-<!doctype html>
+<?php
+include 'testdb.php';
+session_start();
+$p=$_SESSION['mailid'];
+$img=$_SESSION['img'];
+//echo $img;
+if(isset($p))
+{
+	$s1="select cust_id from loginpage where email like '%$p%'";
+$result1=mysqli_query($con,$s1);
+if (!$result1) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+//echo $_SESSION['mailid'];
+$s2="select prod_id from product_details where imgsrc like '%$img%'";
+$result2=mysqli_query($con,$s2);
+if (!$result2)
+ {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+while($row=mysqli_fetch_array($result1)and$r=mysqli_fetch_array($result2) )
+{$sql="INSERT INTO customer_orders values($row[0],$r[0])";
+if(!mysqli_query($con,$sql))
+	die('error :'.mysqli_error($con));
+else 
+	 echo "added to cart";
+}
+
+}
+else
+{
+	 echo "<script>setTimeout(\"location.href = 'login.html';\",100);</script>";
+
+}
+//if(isset($_POST['buy']))
+//{
+	//$s="select prod_id from product_details where imgsrc='$img'";
+
+
+/*$s1="select cust_id from loginpage where email like '%$p%'";
+$result=mysqli_query($con,$s1);
+if (!$result) {
+    printf("Error: %s\n", mysqli_error($con));
+    exit();
+}
+while($row=mysqli_fetch_array($result))
+echo $row[0]." hello";
+echo $_SESSION['mailid'];
+	//$sql="INSERT INTO customer_orders values()";
+//} */
+?>
+
 <html>
 <head>
 
-<title>SIGNUP</title>
+<title>LOGIN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -85,7 +138,7 @@
         }
         .box{
             width:50%;
-            height:800px;
+            height:400px;
             background: rgba(0,0,300,0.5);
             margin: 100px auto;
             padding: 50px;
@@ -95,14 +148,27 @@
         .welcome{
             color:black;
             font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
-            margin:0px auto;
+            margin:0px 170px;
             font-size: 40px;
         }
         .btn a{
+
             text-decoration: none;
             color: White;
         }
-        
+        .register{
+            margin:-38px 0px 0px 200px;
+        }
+        .forgot{
+            margin:-35px 0px 0px 500px;
+        }
+        .forgot a{
+            color: white;
+            font-size: 20px;
+        }
+        .forgot a:hover{
+            color:#0B3BA2;
+        }
     </style>
 </head>
 
@@ -170,39 +236,28 @@
         <div class="col-md-12">
             
             <div class="box">
-                <div class="welcome">Register</div>
-            <form action="signup.php" method="post">
-                
-                <font face="Cambria" color="white" size="5">
-                    <div class="form-group">
-                <label for="exampleInputName1">Name</label>
-                <input type="text" class="form-control" id="exampleInputName1" placeholder="Enter name" name="name">
-              </div>
-                    <div class="form-group">
-                <label for="exampleInputMobile1">Mobile No.</label>
-                <input type="number" class="form-control" id="exampleInputMobile1" placeholder="Mobile No." name="mobile">
-              </div>
-                    <div class="form-group">
-                <label for="exampleInputAddress1">Address</label>
-                <input type="text" class="form-control" id="exampleInputAddress1" placeholder="Enter address" name="address">
-              </div>
-              <div class="form-group">
-                  
-                <label for="exampleInputEmail2">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-              </div>
-                </font>
-              
-              <div class="register"><button type="submit" class="btn btn-primary">Register</button></div>
+                <div class="welcome">ADDED TO CART</div>
+            
+                <?php
+                /*include 'testdb.php';
+                $user=$_POST['name'];
+                $p=$_POST['password'];
+                $sql="select * from loginpage where name='$user' && password='$p'";
+                if($result=mysqli_query($con,"$sql")){
+                    while($row=mysqli_fetch_assoc($result)){
+                    $name=$row['name'];
+                    $email=$row['email'];
+                        echo "name: ",$name;
+                        echo "<br/><br/>";
+                        echo "email: ",$email,"<br/><br/>";
+                }
+                }
+                else{
+                        echo"invalid email and password","<br/><br/>";
+                    }*/
+                ?>
                 
                 
-                
-            </form>
                 </div>
         </div>
     </div>
@@ -281,3 +336,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+	
+
+
+	
